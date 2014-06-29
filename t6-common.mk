@@ -24,6 +24,10 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
 
+# TWRP-ify
+PRODUCT_COPY_FILES += \
+    device/htc/t6-common/twrp.fstab:recovery/root/etc/twrp.fstab
+
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.qcom \
@@ -131,9 +135,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
     $(LOCAL_PATH)/configs/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
-# Misc Packages
+# OmniTorch
 PRODUCT_PACKAGES += \
-    Torch
+    OmniTorch
 
 # Permissions
 PRODUCT_COPY_FILES += \
