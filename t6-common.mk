@@ -14,6 +14,27 @@
 # limitations under the License.
 #
 
+KERNEL_SRC_DIR ?= kernel/htc/msm8960
+KERNEL_CFG_NAME ?= t6
+TARGET_KERNEL_ARCH ?= arm
+# Check for availability of kernel source
+ifneq ($(wildcard $(KERNEL_SRC_DIR)/Makefile),)
+  # Give precedence to TARGET_PREBUILT_KERNEL
+  ifeq ($(TARGET_PREBUILT_KERNEL),)
+    TARGET_KERNEL_BUILT_FROM_SOURCE := true
+  endif
+endif
+ifneq ($(TARGET_KERNEL_BUILT_FROM_SOURCE), true)
+# Use prebuilt kernel
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+LOCAL_KERNEL := kernel/htc/msm8960/zImage
+else
+LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+endif
+PRODUCT_COPY_FILES += \
+    $(LOCAL_KERNEL):kernel
+endif #TARGET_KERNEL_BUILT_FROM_SOURCE
+
 # common msm8960 configs
 $(call inherit-product, device/htc/msm8960-common/msm8960.mk)
 
@@ -130,10 +151,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
     $(LOCAL_PATH)/configs/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
-
-# Misc Packages
-PRODUCT_PACKAGES += \
-    Torch
 
 # Permissions
 PRODUCT_COPY_FILES += \

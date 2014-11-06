@@ -1,4 +1,4 @@
-# Copyright (C) 2013 The Android Open Source Project
+# Copyright (C) 2014 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,6 +28,13 @@
 -include device/htc/msm8960-common/BoardConfigCommon.mk
 
 TARGET_SPECIFIC_HEADER_PATH := device/htc/t6-common/include
+
+TARGET_CPU_ABI := armeabi-v7a
+TARGET_CPU_ABI2 := armeabi
+TARGET_CPU_SMP := true
+TARGET_ARCH := arm
+TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_CPU_VARIANT := krait
 
 # Kernel
 BOARD_KERNEL_BASE := 0x80600000
